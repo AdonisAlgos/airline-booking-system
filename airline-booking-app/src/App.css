@@ -1,0 +1,40 @@
+.plane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    background-color: #1e90ff;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.seat:hover {
+    cursor: pointer;
+    background-color: blue;
+}
+
+.occupied {
+    background-color: #1e90ff;
+}
+
+.seat:not(.occupied) {
+    visibility: hidden;
+}
