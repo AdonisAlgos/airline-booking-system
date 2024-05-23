@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Aircraft = require("../models/Aircraft.model");
+const Aircraft = require("../models/aircraft.model");
 
 // Route to get seating plan of an aircraft based by ID
 router.get("/:id", async (req, res) => {

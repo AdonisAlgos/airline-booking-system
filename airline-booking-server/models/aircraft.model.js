@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const seatSchema = require("./Seat");
+const seatSchema = require("./seat.model");
 
 const aircraftSchema = new mongoose.Schema({
   name: { type: String, required: true },
