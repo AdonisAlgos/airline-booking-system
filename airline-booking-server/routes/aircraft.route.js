@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const Aircraft = require("../models/aircraft.model");
+const AircrafModel = require("../models/aircraft.model");
 
 // Route to get seating plan of an aircraft based by ID
 router.get("/:id", async (req, res) => {
   try {
-    const aircraft = await Aircraft.findById(req.params.id);
+    const aircraft = await AircrafModel.findById(req.params.id);
 
     // If aircraft not found, return error
     if (!aircraft) {
