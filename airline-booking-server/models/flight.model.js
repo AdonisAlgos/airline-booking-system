@@ -6,13 +6,8 @@ const flightSchema = new mongoose.Schema({
   destination: { type: String, required: true },
   departureTime: { type: Date, required: true },
   arrivalTime: { type: Date, required: true },
-  aircraftId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "aircraft",
-    required: true,
-  },
 });
 
-const FlightModel = mongoose.model("flight", flightSchema);
+const Flight = mongoose.model("Flight", flightSchema);
 
-module.exports = FlightModel;
+module.exports = Flight;
