@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getFlights } from "../apis/flights.api";
+import FlightCard from "../cards/Flight.card";
 
 const FlightList = () => {
   const [flights, setFlights] = useState([]);
