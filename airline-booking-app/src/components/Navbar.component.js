@@ -7,7 +7,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="navbar navbar-expand navbar-light fixed-top border-bottom"
+      className="navbar navbar-expand navbar-light"
       style={{
         backgroundColor: "white",
       }}

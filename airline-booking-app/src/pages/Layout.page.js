@@ -5,24 +5,22 @@ import Footer from "../components/Footer.component";
 
 const LayoutPage = () => {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-      }}
-    >
-      {" "}
-      <Navbar />
+    <div style={{ height: "100vh" }}>
+      <div className="fixed-top border-bottom">
+        <Navbar />
+      </div>
       <section
         className="d-flex"
         style={{
-          marginTop: "56px",
-          padding: "2rem",
-          minHeight: "calc(100vh - 56px - 6rem)",
+          marginTop: "57px",
+          height: "calc(100% - 57px)",
         }}
       >
         <Outlet />
       </section>
-      <Footer />
+      <div className="border-top">
+        <Footer />
+      </div>
     </div>
   );
 };
