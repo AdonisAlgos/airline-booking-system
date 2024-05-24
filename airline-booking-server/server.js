@@ -17,7 +17,7 @@ connectDB();
 // Routes
 app.use("/api/aircraft", aircraftRoutes);
 app.use("/api/user", userRoutes);
-app.use("/api/flights", flightRoutes);
+app.use("/api/flight", flightRoutes);
 
 const PORT = process.env.PORT || 5100;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

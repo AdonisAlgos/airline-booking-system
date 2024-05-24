@@ -20,7 +20,7 @@ const FlightList = () => {
       <h1>Flights</h1>
       <div className="row">
         {flights.map((flight) => (
-          <div className="col-md-4" key={flight._id}>
+          <div className="col-md-4 col-sm-6" key={flight._id}>
             <FlightCard flight={flight} />
           </div>
         ))}

@@ -1,0 +1,11 @@
+input.custom-input {
+    height: 50px;
+    border-radius: 20rem;
+}
+
+.custom-label {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #ffffff;
+    padding: 0.5rem;
+}

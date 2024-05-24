@@ -13,7 +13,7 @@ const LayoutPage = () => {
         className="d-flex"
         style={{
           marginTop: "57px",
-          height: "calc(100% - 57px)",
+          minHeight: "calc(100% - 57px)",
         }}
       >
         <Outlet />
