@@ -8,11 +8,11 @@ const flightSchema = new mongoose.Schema({
   arrivalTime: { type: Date, required: true },
   aircraftId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Aircraft",
+    ref: "aircraft",
     required: true,
   },
 });
 
-const FlightModel = mongoose.model("flights", flightSchema);
+const FlightModel = mongoose.model("flight", flightSchema);
 
 module.exports = FlightModel;

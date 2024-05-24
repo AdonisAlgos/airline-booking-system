@@ -13,7 +13,7 @@ app.use(cors());
 connectDB();
 
 // Routes
-app.use("/aircraft", aircraftRoutes);
+app.use("/api/aircraft", aircraftRoutes);
 
 const PORT = process.env.PORT || 5100;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

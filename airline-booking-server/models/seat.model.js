@@ -11,6 +11,6 @@ const seatSchema = new mongoose.Schema({
   label: { type: String, required: true },
 });
 
-const SeatModel = mongoose.model("seats", seatSchema);
+const Seat = mongoose.model("Seat", seatSchema);
 
-module.exports = SeatModel;
+module.exports = Seat;

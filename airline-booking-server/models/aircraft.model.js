@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
-const SeatModel = require("./seat.model");
 
 const aircraftSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  seatingPlan: [[SeatModel.schema]],
+  seatingPlan: [[{ type: mongoose.Schema.Types.ObjectId, ref: "seat" }]],
 });
 
-const AircraftModel = mongoose.model("aircrafts", aircraftSchema);
+const Aircraft = mongoose.model("Aircraft", aircraftSchema);
 
-module.exports = AircraftModel;
+module.exports = Aircraft;
