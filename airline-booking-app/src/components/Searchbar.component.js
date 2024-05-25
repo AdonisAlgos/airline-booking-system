@@ -18,6 +18,7 @@ const SearchBar = () => {
       <div className="row justify-content-center">
         <div className="col-10 col-lg-8">
           <div className="form-group mb-4">
+            <label className="custom-label">Search for flights</label>
             <input
               type="text"
               className="form-control custom-input"
@@ -27,7 +28,7 @@ const SearchBar = () => {
               onChange={(e) => setFrom(e.target.value)}
             />
           </div>
-          <div className="form-group mb-4">
+          <div className="form-group mb-2">
             <input
               type="text"
               className="form-control custom-input"
@@ -37,14 +38,7 @@ const SearchBar = () => {
               onChange={(e) => setTo(e.target.value)}
             />
           </div>
-          <div
-            className="row"
-            style={{
-              backgroundColor: "#000033",
-              borderRadius: "1rem",
-              padding: "1rem",
-            }}
-          >
+          <div className="row">
             <div className="form-group col-6 mb-4">
               <label htmlFor="departureDate" className="custom-label">
                 Departure Date
@@ -72,10 +66,7 @@ const SearchBar = () => {
               />
             </div>
           </div>
-          <button
-            className="btn btn-primary btn-block mt-4"
-            onClick={handleSearch}
-          >
+          <button className="btn custom-button mb-4" onClick={handleSearch}>
             Search Flights
           </button>
         </div>

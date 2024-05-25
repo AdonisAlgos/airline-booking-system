@@ -16,11 +16,10 @@ const FlightList = () => {
   }, []);
 
   return (
-    <div className="container">
-      <h1>Flights</h1>
-      <div className="row">
+    <div>
+      <div className="row g-3">
         {flights.map((flight) => (
-          <div className="col-md-4 col-sm-6" key={flight._id}>
+          <div className="col-lg-4 col-sm-6" key={flight._id}>
             <FlightCard flight={flight} />
           </div>
         ))}
