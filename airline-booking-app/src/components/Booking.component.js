@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import Aircraft from "./Aircraft.component";
 
 const Booking = ({ show, handleClose }) => {
   const [step, setStep] = useState(1);
   const [passengers, setPassengers] = useState([{ name: "", ageGroup: "" }]);
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [aircraft, setAircraft] = useState(null);
-  const [totalGroups, setTotalGroups] = useState(0);
+  const seatingPlanRef = useRef();
 
   const handlePassengerChange = (index, event) => {
     const { name, value } = event.target;
@@ -27,8 +26,15 @@ const Booking = ({ show, handleClose }) => {
     setStep(step - 1);
   };
 
-  const handleSaveChanges = () => {
-    handleClose();
+  const handleConfirmSeats = () => {
+    const validSelection = seatingPlanRef.current.checkSelection();
+    if (validSelection) {
+      setStep(step + 1);
+    } else {
+      alert("Please select seats that do not cause scattered seats.");
+    }
+
+    // handleClose();
   };
 
   return (
@@ -92,8 +98,8 @@ const Booking = ({ show, handleClose }) => {
                 <Aircraft
                   selectedSeats={selectedSeats}
                   setSelectedSeats={setSelectedSeats}
-                  setAircraft={setAircraft}
                   passengers={passengers}
+                  ref={seatingPlanRef}
                 />
               </div>
             )}
@@ -121,7 +127,7 @@ const Booking = ({ show, handleClose }) => {
               <button
                 type="button"
                 className="btn custom-button"
-                onClick={handleSaveChanges}
+                onClick={handleConfirmSeats}
               >
                 Confirm
               </button>

@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { getAircraft } from "../apis/getAircraft.api";
 import SeatCard from "../cards/Seat.card";
 
-const Aircraft = ({ passengers }) => {
+const Aircraft = forwardRef(({ passengers }, ref) => {
   const [aircraft, setAircraft] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const aircraftId = "664f716c57c7e882904afabd";
@@ -65,6 +70,8 @@ const Aircraft = ({ passengers }) => {
 
   const handleSeatSelect = (seat) => {
     setSelectedSeats((prevSelectedSeats) => {
+      console.log("Selected seats: ", selectedSeats);
+
       if (prevSelectedSeats.includes(seat)) {
         return prevSelectedSeats.filter((s) => s !== seat);
       } else {
@@ -72,6 +79,55 @@ const Aircraft = ({ passengers }) => {
       }
     });
   };
+
+  useImperativeHandle(ref, () => ({
+    checkSelection: () => {
+      if (groupSeats.length === 0) {
+        return true;
+      }
+
+      const selectedSeatLabels = selectedSeats.map((seat) => seat.label);
+      let leftEmptySeatCount = 0;
+      let rightEmptySeatCount = 0;
+
+      selectedSeats.forEach((seat) => {
+        for (let col = seat.column - 1; col >= 0; col--) {
+          let leftSeat = aircraft.seatingPlan[seat.row][col];
+          if (
+            selectedSeatLabels.includes(leftSeat.label) ||
+            leftSeat.status === "blocked" ||
+            leftSeat.status === "booked"
+          ) {
+            break;
+          } else if (leftSeat.status === "available") {
+            leftEmptySeatCount += 1;
+          }
+        }
+
+        for (
+          let col = seat.column + 1;
+          col < aircraft.seatingPlan[seat.row].length;
+          col++
+        ) {
+          let rightSeat = aircraft.seatingPlan[seat.row][col];
+          if (
+            selectedSeatLabels.includes(rightSeat.label) ||
+            rightSeat.status === "blocked" ||
+            rightSeat.status === "booked"
+          ) {
+            break;
+          } else if (rightSeat.status === "available") {
+            rightEmptySeatCount += 1;
+          }
+        }
+
+        if (leftEmptySeatCount === 1 || rightEmptySeatCount === 1) {
+          return false;
+        }
+      });
+      return true;
+    },
+  }));
 
   if (!aircraft) {
     return <div>Loading...</div>;
@@ -96,6 +152,6 @@ const Aircraft = ({ passengers }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Aircraft;
