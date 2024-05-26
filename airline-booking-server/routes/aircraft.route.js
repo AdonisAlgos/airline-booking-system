@@ -4,10 +4,10 @@ const Aircraft = require("../models/aircraft.model");
 const Seat = require("../models/seat.model");
 
 // Route to get seating plan of an aircraft based by ID
-router.get("/:id", async (req, res) => {
+router.get("/getAircraft/:id", async (req, res) => {
   try {
     const aircraft = await Aircraft.findById(req.params.id).exec();
-
+    console.log("hi");
     if (!aircraft) {
       return res.status(404).json({ message: "Aircraft not found" });
     }

@@ -1,22 +1,3 @@
-.seat {
-    border: 1px solid #000;
-        background-color: #f9f9f9;
-        /* Background color for better visibility */
-    margin: 5px;
-    padding: 5px;
-        /* Padding to create space inside the container */
-}
-
-.seat-content {
-    width: 100%;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    /* Consistent font */
-    text-align: center;
-    /* Center text horizontally */
-    font-size: 0.8rem;
-}
-
 button.custom-button {
     background-color: #2e5c99;
     height: auto;

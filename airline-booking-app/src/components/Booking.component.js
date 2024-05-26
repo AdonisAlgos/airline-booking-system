@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Aircraft from "./Aircraft.component";
 
 const Booking = ({ show, handleClose }) => {
   const [step, setStep] = useState(1);
@@ -33,7 +34,7 @@ const Booking = ({ show, handleClose }) => {
       role="dialog"
       style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
     >
-      <div className="modal-dialog" role="document">
+      <div className="modal-dialog modal-lg" role="document">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">
@@ -85,9 +86,7 @@ const Booking = ({ show, handleClose }) => {
             )}
             {step === 2 && (
               <div>
-                <h5>Select Seats</h5>
-                {/* Replace with actual seat selection logic */}
-                <p>Seat selection functionality goes here.</p>
+                <Aircraft />
               </div>
             )}
           </div>
