@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Aircraft from "./Aircraft.component";
 
 const Booking = ({ show, handleClose }) => {
   const [step, setStep] = useState(1);
   const [passengers, setPassengers] = useState([{ name: "", ageGroup: "" }]);
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [aircraft, setAircraft] = useState(null);
+  const [totalGroups, setTotalGroups] = useState(0);
 
   const handlePassengerChange = (index, event) => {
     const { name, value } = event.target;
@@ -38,7 +41,7 @@ const Booking = ({ show, handleClose }) => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">
-              {step === 1 ? "Booking Passengers" : "Aircraft Seating Plan"}
+              {step === 1 ? "Booking Passengers" : "Select Seats"}
             </h5>
           </div>
           <div className="modal-body">
@@ -86,7 +89,12 @@ const Booking = ({ show, handleClose }) => {
             )}
             {step === 2 && (
               <div>
-                <Aircraft />
+                <Aircraft
+                  selectedSeats={selectedSeats}
+                  setSelectedSeats={setSelectedSeats}
+                  setAircraft={setAircraft}
+                  passengers={passengers}
+                />
               </div>
             )}
           </div>
