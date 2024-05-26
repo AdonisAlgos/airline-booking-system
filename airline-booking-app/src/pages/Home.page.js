@@ -11,7 +11,7 @@ const HomePage = () => {
       </div>
       <div
         className="p-5"
-        style={{ color: "black", backgroundColor: "#ececed" }}
+        style={{ color: "black", backgroundColor: "rgb(251, 251, 251)" }}
       >
         <h1
           style={{

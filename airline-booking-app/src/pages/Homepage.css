@@ -2,7 +2,6 @@
     height: 100%;
     width: 100%;
 }
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 .title {
     font-weight: 300;
@@ -12,7 +11,7 @@
     /* Adjust the color as needed */
 }
 .bg-image {
-    background-image: url('../assets/images/homepage_img.webp');
+    background-image: url('../assets/images/img.webp');
     background-size: cover;
     background-position: center;
     height: 100%;

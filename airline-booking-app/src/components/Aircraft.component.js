@@ -60,9 +60,6 @@ const Aircraft = forwardRef(
           }
 
           setAircraft(aircraftData);
-          console.log("Total groups: ", groups);
-          console.log("Threshold: ", threshold);
-          console.log("Seat groups: ", groupSeats);
         })
         .catch((error) => {
           console.error("Error fetching aircraft data:", error);
@@ -75,8 +72,6 @@ const Aircraft = forwardRef(
 
     const handleSeatSelect = (seat) => {
       setSelectedSeats((prevSelectedSeats) => {
-        console.log("Selected seats: ", selectedSeats);
-
         if (prevSelectedSeats.includes(seat)) {
           return prevSelectedSeats.filter((s) => s !== seat);
         } else {
@@ -95,11 +90,10 @@ const Aircraft = forwardRef(
         let leftEmptySeatCount = 0;
         let rightEmptySeatCount = 0;
 
-        console.log(aircraft.seatingPlan);
-
         selectedSeats.forEach((seat) => {
-          for (let col = seat.column - 1; col >= 0; col--) {
+          for (let col = Number(seat.column - 1); col >= 0; col--) {
             let leftSeat = aircraft.seatingPlan[seat.row][col];
+            console.log(leftSeat.label);
             if (
               selectedSeatLabels.includes(leftSeat.label) ||
               leftSeat.status === "blocked" ||
@@ -112,11 +106,12 @@ const Aircraft = forwardRef(
           }
 
           for (
-            let col = seat.column + 1;
+            let col = Number(seat.column) + 1;
             col < aircraft.seatingPlan[seat.row].length;
             col++
           ) {
             let rightSeat = aircraft.seatingPlan[seat.row][col];
+            console.log(rightSeat.label);
             if (
               selectedSeatLabels.includes(rightSeat.label) ||
               rightSeat.status === "blocked" ||
