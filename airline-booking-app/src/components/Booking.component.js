@@ -1,11 +1,14 @@
 import React, { useRef, useState } from "react";
 import Aircraft from "./Aircraft.component";
+import { useUser } from "../contexts/User.context";
+import { updateSeatingPlan } from "../apis/updateSeatingPlan.api";
 
-const Booking = ({ show, handleClose }) => {
+const Booking = ({ show, handleClose, aircraftId }) => {
   const [step, setStep] = useState(1);
   const [passengers, setPassengers] = useState([{ name: "", ageGroup: "" }]);
-  const [selectedSeats, setSelectedSeats] = useState([]);
   const seatingPlanRef = useRef();
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const { user } = useUser();
 
   const handlePassengerChange = (index, event) => {
     const { name, value } = event.target;
@@ -26,15 +29,38 @@ const Booking = ({ show, handleClose }) => {
     setStep(step - 1);
   };
 
+  const handleSeatSelectionChange = (seats) => {
+    setSelectedSeats(seats);
+  };
+
+  const handleCheckout = () => {
+    setTimeout(() => {
+      for (const seat of selectedSeats) {
+        updateSeatingPlan(seat._id, "booked");
+      }
+      setStep(1);
+      setSelectedSeats([]);
+      setPassengers([{ name: "", ageGroup: "" }]);
+      alert("Booking confirmed!");
+      handleClose();
+    }, 3000);
+  };
+
   const handleConfirmSeats = () => {
+    if (!user) {
+      alert("Please sign-in or register an account to book a flight.");
+      return;
+    }
+    if (selectedSeats.length !== passengers.length) {
+      alert("Please select a seat for each passenger.");
+      return;
+    }
     const validSelection = seatingPlanRef.current.checkSelection();
     if (validSelection) {
       setStep(step + 1);
     } else {
       alert("Please select seats that do not cause scattered seats.");
     }
-
-    // handleClose();
   };
 
   return (
@@ -46,9 +72,9 @@ const Booking = ({ show, handleClose }) => {
       <div className="modal-dialog modal-lg" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">
-              {step === 1 ? "Booking Passengers" : "Select Seats"}
-            </h5>
+            {step === 1 && <h5 className="modal-title">Booking Passengers</h5>}
+            {step === 2 && <h5 className="modal-title">Select Seats</h5>}
+            {step === 3 && <h5 className="modal-title">Booking Summary</h5>}
           </div>
           <div className="modal-body">
             {step === 1 && (
@@ -96,11 +122,25 @@ const Booking = ({ show, handleClose }) => {
             {step === 2 && (
               <div>
                 <Aircraft
-                  selectedSeats={selectedSeats}
-                  setSelectedSeats={setSelectedSeats}
+                  aircraftId={aircraftId}
                   passengers={passengers}
+                  setSelectedSeatsInBooking={handleSeatSelectionChange}
                   ref={seatingPlanRef}
                 />
+              </div>
+            )}
+            {step === 3 && (
+              <div>
+                <ul>
+                  {passengers.map((passenger, index) => (
+                    <li key={index}>
+                      {passenger.name} - {passenger.ageGroup}
+                    </li>
+                  ))}
+                  <li>
+                    Seats: {selectedSeats.map((seat) => seat.label).join(", ")}
+                  </li>
+                </ul>
               </div>
             )}
           </div>
@@ -130,6 +170,15 @@ const Booking = ({ show, handleClose }) => {
                 onClick={handleConfirmSeats}
               >
                 Confirm
+              </button>
+            )}
+            {step === 3 && (
+              <button
+                type="button"
+                className="btn custom-button"
+                onClick={handleCheckout}
+              >
+                Checkout
               </button>
             )}
             <button

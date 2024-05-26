@@ -39,7 +39,11 @@ const FlightCard = ({ flight }) => {
           </div>
         </div>
       </div>
-      <Booking show={showModal} handleClose={handleClose} />
+      <Booking
+        aircraftId={flight.aircraftid}
+        show={showModal}
+        handleClose={handleClose}
+      />
     </>
   );
 };
