@@ -3,7 +3,7 @@ import Aircraft from "./Aircraft.component";
 import { useUser } from "../contexts/User.context";
 import { updateSeatingPlan } from "../apis/updateSeatingPlan.api";
 
-const Booking = ({ show, handleClose, aircraftId }) => {
+const Booking = ({ show, handleClose, aircraftId, flight }) => {
   const [step, setStep] = useState(1);
   const [passengers, setPassengers] = useState([{ name: "", ageGroup: "" }]);
   const seatingPlanRef = useRef();
@@ -72,10 +72,14 @@ const Booking = ({ show, handleClose, aircraftId }) => {
     >
       <div className="modal-dialog modal-lg" role="document">
         <div className="modal-content">
-          <div className="modal-header">
-            {step === 1 && <h5 className="modal-title">Booking Passengers</h5>}
-            {step === 2 && <h5 className="modal-title">Select Seats</h5>}
-            {step === 3 && <h5 className="modal-title">Booking Summary</h5>}
+          <div className="modal-header d-flex flex-column">
+            <h5 className="card-title">{flight.flightNumber}</h5>
+            <h5 className="card-subtitle mb-3 text-muted">
+              {flight.departure} to {flight.destination}
+            </h5>
+            {step === 1 && <h6 className="modal-title">Booking Passengers</h6>}
+            {step === 2 && <h6 className="modal-title">Select Seats</h6>}
+            {step === 3 && <h6 className="modal-title">Booking Summary</h6>}
           </div>
           <div className="modal-body">
             {step === 1 && (

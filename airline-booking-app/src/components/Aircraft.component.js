@@ -14,10 +14,14 @@ const Aircraft = forwardRef(
     const [groupSeats, setGroupSeats] = useState([]);
 
     useEffect(() => {
-      console.log(aircraftId);
       getAircraft(aircraftId)
         .then((response) => {
           const aircraftData = response.data;
+
+          const threshold = Math.ceil(
+            aircraftData.seatingPlan.length / passengers.length
+          );
+
           let groups = 0;
           let seatGroups = [];
 
@@ -36,6 +40,12 @@ const Aircraft = forwardRef(
                 seatGroups = seatGroups.concat(currentGroup);
                 count = 0;
                 currentGroup = [];
+              } else if (
+                (seat.status === "blocked" || seat.status === "booked") &&
+                count !== passengers.length
+              ) {
+                count = 0;
+                currentGroup = [];
               }
             });
             if (count === passengers.length) {
@@ -44,10 +54,8 @@ const Aircraft = forwardRef(
             }
           });
 
-          const threshold = Math.ceil(
-            aircraftData.seatingPlan.length / passengers.length
-          );
           setGroupSeats(seatGroups);
+          console.log(seatGroups);
 
           if (groups >= threshold) {
             aircraftData.seatingPlan.forEach((row) => {
@@ -127,8 +135,6 @@ const Aircraft = forwardRef(
               rightEmptySeatCount += 1;
             }
           }
-
-          console.log(leftEmptySeatCount, rightEmptySeatCount);
 
           if (leftEmptySeatCount === 1 || rightEmptySeatCount === 1) {
             console.log("Scattered seats found.");

@@ -41,6 +41,7 @@ const FlightCard = ({ flight }) => {
       </div>
       <Booking
         aircraftId={flight.aircraftid}
+        flight={flight}
         show={showModal}
         handleClose={handleClose}
       />
