@@ -56,7 +56,8 @@ const Booking = ({ show, handleClose, aircraftId }) => {
       return;
     }
     const validSelection = seatingPlanRef.current.checkSelection();
-    if (validSelection) {
+    if (validSelection === true) {
+      console.log(validSelection);
       setStep(step + 1);
     } else {
       alert("Please select seats that do not cause scattered seats.");

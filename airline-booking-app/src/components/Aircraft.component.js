@@ -64,7 +64,7 @@ const Aircraft = forwardRef(
         .catch((error) => {
           console.error("Error fetching aircraft data:", error);
         });
-    });
+    }, [aircraftId, passengers]);
 
     useEffect(() => {
       setSelectedSeatsInBooking(selectedSeats);
@@ -83,6 +83,7 @@ const Aircraft = forwardRef(
     useImperativeHandle(ref, () => ({
       checkSelection: () => {
         if (groupSeats.length === 0) {
+          console.log(groupSeats);
           return true;
         }
 
@@ -90,7 +91,11 @@ const Aircraft = forwardRef(
         let leftEmptySeatCount = 0;
         let rightEmptySeatCount = 0;
 
-        selectedSeats.forEach((seat) => {
+        for (let i = 0; i < selectedSeats.length; i++) {
+          const seat = selectedSeats[i];
+          leftEmptySeatCount = 0;
+          rightEmptySeatCount = 0;
+
           for (let col = Number(seat.column - 1); col >= 0; col--) {
             let leftSeat = aircraft.seatingPlan[seat.row][col];
             console.log(leftSeat.label);
@@ -123,13 +128,17 @@ const Aircraft = forwardRef(
             }
           }
 
+          console.log(leftEmptySeatCount, rightEmptySeatCount);
+
           if (leftEmptySeatCount === 1 || rightEmptySeatCount === 1) {
+            console.log("Scattered seats found.");
             return false;
           }
-        });
+        }
         return true;
       },
     }));
+
 
     if (!aircraft) {
       return <div>Loading...</div>;
